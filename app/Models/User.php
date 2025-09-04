@@ -14,8 +14,6 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'email',
-        'password',
         'first_name',
         'middle_name',
         'last_name',
@@ -23,16 +21,9 @@ class User extends Authenticatable
         'role',
     ];
 
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
             'role' => Roles::class,
         ];
     }
@@ -41,7 +32,7 @@ class User extends Authenticatable
     {
         return new Attribute(
             get: function ($value, array $attributes) {
-                return $attributes['first_name'].' '.$attributes['middle_name'].' '.$attributes['last_name'];
+                return $attributes['first_name'] . ' ' . $attributes['middle_name'] . ' ' . $attributes['last_name'];
             }
         );
     }
