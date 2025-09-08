@@ -1,0 +1,418 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "UserService",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Show users",
+                "description": "Show users",
+                "operationId": "2f42d449c840d1aa8f0ddfd80937bf53",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number for pagination",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/UserResource"
+                                            }
+                                        },
+                                        "links": {
+                                            "properties": {
+                                                "first": {
+                                                    "type": "string"
+                                                },
+                                                "last": {
+                                                    "type": "string"
+                                                },
+                                                "prev": {
+                                                    "type": "string",
+                                                    "nullable": true
+                                                },
+                                                "next": {
+                                                    "type": "string",
+                                                    "nullable": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer"
+                                                },
+                                                "from": {
+                                                    "type": "integer",
+                                                    "nullable": true
+                                                },
+                                                "last_page": {
+                                                    "type": "integer"
+                                                },
+                                                "per_page": {
+                                                    "type": "integer"
+                                                },
+                                                "to": {
+                                                    "type": "integer",
+                                                    "nullable": true
+                                                },
+                                                "total": {
+                                                    "type": "integer"
+                                                },
+                                                "links": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "url": {
+                                                                "type": "string",
+                                                                "nullable": true
+                                                            },
+                                                            "label": {
+                                                                "type": "string"
+                                                            },
+                                                            "active": {
+                                                                "type": "boolean"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Store new user",
+                "description": "Store new user",
+                "operationId": "f4fa27d4126548d2f850d12637f670fd",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreUserRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User added successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/{user_id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Show user",
+                "description": "Show user with id {user_id}",
+                "operationId": "00acac67b46b64075cc4ea17c0edcc81",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update user",
+                "description": "Update user with id {user_id}",
+                "operationId": "27b982b043bc2645516959db666e928c",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateUserRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Delete user",
+                "description": "Delete user with id {user_id}",
+                "operationId": "af5c018bb46e2a9c44f9f1d5b34ad664",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "result": {
+                                            "description": "User deleted successfully",
+                                            "type": "string",
+                                            "example": "success"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "StoreUserRequest": {
+                "required": [
+                    "email",
+                    "password",
+                    "first_name",
+                    "middle_name",
+                    "last_name",
+                    "phone",
+                    "role"
+                ],
+                "properties": {
+                    "email": {
+                        "description": "Email",
+                        "type": "string",
+                        "example": "test@mail.ru"
+                    },
+                    "password": {
+                        "description": "Password",
+                        "type": "string",
+                        "example": "12345Password!"
+                    },
+                    "first_name": {
+                        "description": "First name",
+                        "type": "string",
+                        "example": "FirstName"
+                    },
+                    "middle_name": {
+                        "description": "Middle name",
+                        "type": "string",
+                        "example": "MiddleName"
+                    },
+                    "last_name": {
+                        "description": "Last name",
+                        "type": "string",
+                        "example": "LastName"
+                    },
+                    "phone": {
+                        "description": "Phone number",
+                        "type": "string",
+                        "example": "+7-987-654-32-10"
+                    },
+                    "role": {
+                        "description": "Role id",
+                        "type": "integer",
+                        "example": "2"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateUserRequest": {
+                "properties": {
+                    "email": {
+                        "description": "Email",
+                        "type": "string",
+                        "example": "test@mail.ru"
+                    },
+                    "password": {
+                        "description": "Password",
+                        "type": "string",
+                        "example": "12345Password!"
+                    },
+                    "first_name": {
+                        "description": "First name",
+                        "type": "string",
+                        "example": "FirstName"
+                    },
+                    "middle_name": {
+                        "description": "Middle name",
+                        "type": "string",
+                        "example": "MiddleName"
+                    },
+                    "last_name": {
+                        "description": "Last name",
+                        "type": "string",
+                        "example": "LastName"
+                    },
+                    "phone": {
+                        "description": "Phone number",
+                        "type": "string",
+                        "example": "+7-987-654-32-10"
+                    },
+                    "role": {
+                        "description": "Role id",
+                        "type": "integer",
+                        "example": "2"
+                    }
+                },
+                "type": "object"
+            },
+            "RoleResource": {
+                "properties": {
+                    "id": {
+                        "description": "Role ID",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "description": "Role name",
+                        "type": "string",
+                        "example": "Admin"
+                    }
+                },
+                "type": "object"
+            },
+            "UserResource": {
+                "properties": {
+                    "id": {
+                        "description": "User ID",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "email": {
+                        "description": "User email",
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "description": "User first name",
+                        "type": "string"
+                    },
+                    "middle_name": {
+                        "description": "User middle name",
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "description": "User last name",
+                        "type": "string"
+                    },
+                    "phone": {
+                        "description": "Phone",
+                        "type": "string"
+                    },
+                    "role": {
+                        "$ref": "#/components/schemas/RoleResource"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Users",
+            "description": "Users"
+        }
+    ]
+}
