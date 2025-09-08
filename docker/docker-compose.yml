@@ -1,3 +1,4 @@
+name: user-service
 services:
   php:
     build:
@@ -9,6 +10,7 @@ services:
       - postgres
     networks:
       - user-service-network
+      - microservices-network
 
   nginx:
     build:
@@ -22,6 +24,7 @@ services:
       - php
     networks:
       - user-service-network
+      - microservices-network
 
   postgres:
     image: postgres:17
@@ -42,3 +45,5 @@ volumes:
 networks:
   user-service-network:
     driver: bridge
+  microservices-network:
+    external: true
