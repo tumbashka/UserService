@@ -220,4 +220,32 @@ class UserController extends Controller
     public function destroy(User $user)
     {
     }
+
+    #[OA\Get(
+        path: '/api/users/{user_id}/check',
+        description: 'Check user with id {user_id} exists',
+        summary: 'Check user exists',
+        tags: ['Users'],
+        parameters: [
+            new OA\Parameter(
+                name: 'user_id',
+                description: 'User ID',
+                in: 'path',
+                required: true,
+                schema: new OA\Schema(type: 'integer'),
+                example: 12
+            ),
+        ],
+        responses: [
+            new OA\Response(
+                response: 200, description: 'Check result', content: new OA\JsonContent(
+                properties: [
+                    new OA\Property(property: 'result', type: 'boolean', example: 'true'),
+                ]
+            )
+            ),
+        ]
+    )]
+    public function check()
+    {}
 }
