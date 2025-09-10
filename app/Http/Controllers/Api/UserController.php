@@ -21,19 +21,19 @@ class UserController extends Controller
     {
         $user = User::create($request->validated());
 
-        return new UserResource($user);
+        return UserResource::make($user);
     }
 
     public function show(User $user)
     {
-        return new UserResource($user);
+        return UserResource::make($user);
     }
 
     public function update(User $user, UpdateUserRequest $request)
     {
         $user->update($request->validated());
 
-        return new UserResource($user);
+        return UserResource::make($user);
     }
 
     public function destroy(User $user)
@@ -43,5 +43,14 @@ class UserController extends Controller
         return response()->json([
             'result' => $res ? 'success' : 'error',
         ]);
+    }
+
+    public function check(int $userId)
+    {
+        $result = User::where('id', $userId)->exists();
+
+        return response()->json(
+            compact('result'),
+        );
     }
 }
