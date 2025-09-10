@@ -1,6 +1,6 @@
 name: user-service
 services:
-  php:
+  user-php:
     build:
       context: ../
       dockerfile: docker/php/Dockerfile
@@ -21,10 +21,12 @@ services:
     volumes:
       - ../:/var/www
     depends_on:
-      - php
+      - user-php
     networks:
-      - user-service-network
-      - microservices-network
+      user-service-network:
+      microservices-network:
+        aliases:
+          - user-service
 
   postgres:
     image: postgres:17

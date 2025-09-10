@@ -44,4 +44,13 @@ class UserController extends Controller
             'result' => $res ? 'success' : 'error',
         ]);
     }
+
+    public function check(int $userId)
+    {
+        $result = User::where('id', $userId)->exists();
+
+        return response()->json(
+            compact('result'),
+        );
+    }
 }
